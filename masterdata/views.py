@@ -3,8 +3,11 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
-from serializer import ProfileSerializer
-from models import Profile
+from serializers import ProfileSerializer
+from models import Profile,Org
+from rest_framework.views import APIView
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+
 
 # Create your views here.
 
@@ -17,18 +20,10 @@ from models import Profile
 
 
 class SnippetList(ListAPIView):
-    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    authentication_classes = (JSONWebTokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-
-    queryset = Profile.objects.all()
+    queryset = Org.objects.all()
     serializer_class = ProfileSerializer
-    
-
-
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
 class RestrictedView(APIView):
@@ -36,9 +31,17 @@ class RestrictedView(APIView):
     authentication_classes = (JSONWebTokenAuthentication, )
 
     def get(self, request):
+        import ipdb;ipdb.set_trace()
         data = {
             'id': request.user.id,
             'username': request.user.username,
             'token': str(request.auth)
         }
         return Response(data)
+
+
+
+
+
+
+

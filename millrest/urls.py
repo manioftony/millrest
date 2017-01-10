@@ -9,9 +9,17 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^login/', obtain_jwt_token),
     url(r'^index/$', views.SnippetList.as_view()),
     url(r'^restricted/$', views.RestrictedView.as_view()),
+
+    url(r'^profile/list/(?P<model>.*)/$', 'masterdata.jsonviews.ListCFeed'),
+    url(r'^profile/add/(?P<model>.*)/$', 'masterdata.jsonviews.AddCFeed'),
+    url(r'^profile/edit/(?P<model>.*)/(?P<object_id>.*)/$',
+    'masterdata.jsonviews.EditCFeed'),
+    url(r'^profile/active/(?P<model>.*)/(?P<object_id>.*)/$',
+    'masterdata.jsonviews.ActiveCFeed'),
+
 
 
 ]

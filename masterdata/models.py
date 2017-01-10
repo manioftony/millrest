@@ -1,23 +1,34 @@
 from django.db import models
 
+
 class Org(models.Model):
-    name = models.CharField(max_length=100,blank=True, null=True)
+    name = models.CharField(max_length=100, blank=True, null=True)
 
     def __unicode__(self):
         return self.name
 
 
+class Info(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
+    name1 = models.CharField(max_length=100, blank=True, null=True)
+    name2 = models.CharField(max_length=100, blank=True, null=True)
+    name3 = models.CharField(max_length=100, blank=True, null=True)
+    name4 = models.CharField(max_length=100, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
 
 
+ACTIVE = ((0, 'Inactive'), (2, 'Active'),)
 
-ACTIVE = ((0,'Inactive'), (2, 'Active'),)
+
 class Base(models.Model):
-    
+
     """ Basic Fields """
 
-    active = models.PositiveIntegerField(choices = ACTIVE, default=2)
-    created_on = models.DateTimeField(auto_now_add = True)
-    modified_on = models.DateTimeField(auto_now = True)
+    active = models.PositiveIntegerField(choices=ACTIVE, default=2)
+    created_on = models.DateTimeField(auto_now_add=True)
+    modified_on = models.DateTimeField(auto_now=True)
 
     def switch(self):
         self.active = {0: 2, 2: 0}[self.active]
@@ -26,7 +37,6 @@ class Base(models.Model):
 
     class Meta:
         abstract = True
-
 
 
 class Profile(Base):
@@ -42,20 +52,22 @@ class Profile(Base):
     permanet_address = models.CharField(max_length=100, blank=True, null=True)
     joining_date = models.DateField(max_length=100, blank=True, null=True)
     date_of_birth = models.DateField(max_length=100, blank=True, null=True)
-    mobile_number = models.IntegerField(blank=True, null=True,unique=True)
+    mobile_number = models.IntegerField(blank=True, null=True, unique=True)
     landline_number = models.IntegerField(blank=True, null=True)
-    voter_id = models.CharField(max_length=100, blank=True, null=True,unique=True)
-    driving_license = models.CharField(max_length=100, blank=True, null=True,unique=True)
-    aadhar_card = models.CharField(max_length=100, blank=True, null=True,unique=True)
+    voter_id = models.CharField(
+        max_length=100, blank=True, null=True, unique=True)
+    driving_license = models.CharField(
+        max_length=100, blank=True, null=True, unique=True)
+    aadhar_card = models.CharField(
+        max_length=100, blank=True, null=True, unique=True)
 
     def __unicode__(self):
         return self.first_name
 
 
-
-
 class EmployeeInfo(Base):
-    employee_id = models.CharField(max_length=100, blank=True, null=True,unique=True)
+    employee_id = models.CharField(
+        max_length=100, blank=True, null=True, unique=True)
     working_shift = models.CharField(max_length=100, blank=True, null=True)
     login_time = models.TimeField(blank=True, null=True)
     logout_time = models.TimeField(blank=True, null=True)
@@ -66,7 +78,3 @@ class EmployeeInfo(Base):
 
     def __unicode__(self):
         return self.employee_id
-
-
-
-
