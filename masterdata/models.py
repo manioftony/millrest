@@ -61,8 +61,8 @@ class Profile(Base):
     aadhar_card = models.CharField(
         max_length=100, blank=True, null=True, unique=True)
 
-    def __unicode__(self):
-        return self.first_name
+    # def __unicode__(self):
+    #     return self.first_name
 
 
 class EmployeeInfo(Base):

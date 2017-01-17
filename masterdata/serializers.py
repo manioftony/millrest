@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from models import Profile, Org
+from django.contrib.auth.models import User
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -10,7 +11,8 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 field_data = {
     'profile': ('first_name', 'last_name', 'gender', 'blood_group', 'current_address', 'permanet_address', 'joining_date', 'date_of_birth', 'mobile_number', 'landline_number', 'voter_id', 'driving_license', 'aadhar_card',),
-    'employeeinfo': ('employee_id', 'working_shift', 'login_time', 'logout_time', 'employee_role', 'under_supervision', 'break_time', 'over_time',)
+    'employeeinfo': ('employee_id', 'working_shift', 'login_time', 'logout_time', 'employee_role', 'under_supervision', 'break_time', 'over_time',),
+    'User': ('username', 'email', 'password',),
 }
 
 
